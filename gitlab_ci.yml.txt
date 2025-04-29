@@ -1,0 +1,21 @@
+image: python:3.11  # Use a Python image
+
+stages:
+  - test
+  - deploy
+
+test_job:
+  stage: test
+  script:
+    - python --version
+    - pip install -r requirements.txt
+    - pytest -s 
+ 
+deploy_job:
+  stage: deploy
+  only:
+    - main  # Deploy only from the main branch
+  script:
+    - echo "Starting deployment..."
+    - python main.py
+    - echo "Deployment complete."
